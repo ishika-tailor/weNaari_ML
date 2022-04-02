@@ -86,6 +86,10 @@ def scraptweets(search_words,numTweets,latitude,longitude):
     accessToken = "962006996055502848-pXTUZdYfqcHd2LBU73ONGLepJXFh2tn"
     accessTokenSecret = "OLxYCAcXl206ZgNcQGhsuJcuaXCdWWSLDV2VMwK51tUVK"
 
+    # consumerKey = "Ts7w6URgOYWXRfNuJwiUVoSz4"
+    # consumerSecret = "iqItFdmQ84UtcMT7PDIx9Ygovjzd6PW4akEI27Q6MUmqIrbjaR"
+    # accessToken = "1171293910175383554-17noADblkdWPPDVSYTXtyAIPsFsAqp"
+    # accessTokenSecret = "MVUeVZQz0QkFbVcHTaKkusAZNK0RQf5qDvIlVjopYfL9G"
     # Create the authentication object
     authenticate = tweepy.OAuthHandler(consumerKey, consumerSecretKey) 
         
@@ -98,7 +102,6 @@ def scraptweets(search_words,numTweets,latitude,longitude):
     for i in range(0, 1):
         tweets = tweepy.Cursor(api.search, lang="en",q=search_words, geocode="%f,%f,%dkm" % (latitude, longitude, 100), tweet_mode='extended').items(numTweets)
         tweet_list = [tweet for tweet in tweets]
-    
     for tweet in tweet_list:
         username = tweet.user.screen_name
         location = tweet.user.location
@@ -112,9 +115,12 @@ def scraptweets(search_words,numTweets,latitude,longitude):
     return clean(db_tweets)
 
 def get_tweets(user1,user2,swords):
+    # data = pd.read_csv('Data.csv')
+    # data.drop(data.columns[[3,4,5]], axis = 1, inplace = True) 
 
-    search_words=["women","rape","girl","harassment"]
+    search_words=["women","rape"]
     if len(swords) > 0 : search_words = swords
+    # data['City'] = data['City'].apply(lambda x: x.lower())
     latitude= user1
     longitude = user2
     return scraptweets(search_words,100,latitude,longitude)
