@@ -87,7 +87,7 @@ def scraptweets(search_words,numTweets,latitude,longitude):
     # accessTokenSecret = "OLxYCAcXl206ZgNcQGhsuJcuaXCdWWSLDV2VMwK51tUVK"
 
     consumerKey = "5WB5sGG7GWAkgNmBUlW4dkVz6"
-    consumerSecret = "DnA2J9AshIGeokLfG34WSPlyhJZIqbEZgohB27h8x7OFNOVvxX"
+    consumerSecretKey = "DnA2J9AshIGeokLfG34WSPlyhJZIqbEZgohB27h8x7OFNOVvxX"
     accessToken = "1509052827729301506-afsyPGSVFKrHnJihx4VcU2CaLagJhx"
     accessTokenSecret = "1WRFkEuu6bN3oEEy1kkhVdZe35vEuQWSWJFJTPMyFCDtx"
     # Create the authentication object
