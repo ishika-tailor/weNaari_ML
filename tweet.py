@@ -81,15 +81,15 @@ def clean(db_tweets):
 def scraptweets(search_words,numTweets,latitude,longitude):
     
     
-    consumerKey = "1dxddKBUmRCr8g0YDp3VeTTvK"
-    consumerSecretKey = "g5g2Wa6Xsc7uQMvnOBfK1iHz0OTtbqtS7IaP5PCIK39MCfaj7Q"
-    accessToken = "962006996055502848-pXTUZdYfqcHd2LBU73ONGLepJXFh2tn"
-    accessTokenSecret = "OLxYCAcXl206ZgNcQGhsuJcuaXCdWWSLDV2VMwK51tUVK"
+    # consumerKey = "1dxddKBUmRCr8g0YDp3VeTTvK"
+    # consumerSecretKey = "g5g2Wa6Xsc7uQMvnOBfK1iHz0OTtbqtS7IaP5PCIK39MCfaj7Q"
+    # accessToken = "962006996055502848-pXTUZdYfqcHd2LBU73ONGLepJXFh2tn"
+    # accessTokenSecret = "OLxYCAcXl206ZgNcQGhsuJcuaXCdWWSLDV2VMwK51tUVK"
 
-    # consumerKey = "Ts7w6URgOYWXRfNuJwiUVoSz4"
-    # consumerSecret = "iqItFdmQ84UtcMT7PDIx9Ygovjzd6PW4akEI27Q6MUmqIrbjaR"
-    # accessToken = "1171293910175383554-17noADblkdWPPDVSYTXtyAIPsFsAqp"
-    # accessTokenSecret = "MVUeVZQz0QkFbVcHTaKkusAZNK0RQf5qDvIlVjopYfL9G"
+    consumerKey = "5WB5sGG7GWAkgNmBUlW4dkVz6"
+    consumerSecret = "DnA2J9AshIGeokLfG34WSPlyhJZIqbEZgohB27h8x7OFNOVvxX"
+    accessToken = "1509052827729301506-afsyPGSVFKrHnJihx4VcU2CaLagJhx"
+    accessTokenSecret = "1WRFkEuu6bN3oEEy1kkhVdZe35vEuQWSWJFJTPMyFCDtx"
     # Create the authentication object
     authenticate = tweepy.OAuthHandler(consumerKey, consumerSecretKey) 
         
