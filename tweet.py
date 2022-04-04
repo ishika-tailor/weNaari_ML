@@ -61,17 +61,23 @@ def clean(db_tweets):
     dataset['clean_tweet'] = dataset['clean_tweet'].apply(lambda x : ' '.join([ps.stem(word) for word in x.split()])) 
     dataset['text']=dataset['clean_tweet']
     dataset.drop('clean_tweet',axis=1,inplace=True)
+
     dataset['Subjectivity'] = dataset['text'].apply(getSubjectivity)
     dataset['Polarity'] = dataset['text'].apply(getPolarity)
     dataset['Analysis'] = dataset['Polarity'].apply(getAnalysis)
     nusers = dataset[dataset.Analysis == 'Negative']
+
     df=dataset
     allWords = ' '.join([twts for twts in df['text']])
+
     new_stopwords=["woman","women","girl","women'","https"]
     wc = WordCloud(width = 800, height = 600, max_font_size = 110, max_words=100, stopwords=new_stopwords).generate(allWords)
     plt.figure()
     plt.pie(x=df['Analysis'].value_counts(),labels=df['Analysis'].value_counts().index)
+
+    #impact_ratio
     todayGraph = datetime.now().strftime("%Y%m%d-%H%M%S")
+
     plt.savefig('./static/Graph{}.png'.format(todayGraph))
     plt.show()
     dataset['text'] = dataset['text1']
@@ -87,9 +93,10 @@ def scraptweets(search_words,numTweets,latitude,longitude):
     # accessTokenSecret = "OLxYCAcXl206ZgNcQGhsuJcuaXCdWWSLDV2VMwK51tUVK"
 
     consumerKey = "5WB5sGG7GWAkgNmBUlW4dkVz6"
-    consumerSecret = "DnA2J9AshIGeokLfG34WSPlyhJZIqbEZgohB27h8x7OFNOVvxX"
+    consumerSecretKey = "DnA2J9AshIGeokLfG34WSPlyhJZIqbEZgohB27h8x7OFNOVvxX"
     accessToken = "1509052827729301506-afsyPGSVFKrHnJihx4VcU2CaLagJhx"
     accessTokenSecret = "1WRFkEuu6bN3oEEy1kkhVdZe35vEuQWSWJFJTPMyFCDtx"
+
     # Create the authentication object
     authenticate = tweepy.OAuthHandler(consumerKey, consumerSecretKey) 
         
@@ -99,8 +106,9 @@ def scraptweets(search_words,numTweets,latitude,longitude):
     # Creating the API object while passing in auth information
     api = tweepy.API(authenticate, wait_on_rate_limit = True)
     db_tweets = pd.DataFrame(columns = ['username','location', 'text', 'hashtags'])
+
     for i in range(0, 1):
-        tweets = tweepy.Cursor(api.search, lang="en",q=search_words, geocode="%f,%f,%dkm" % (latitude, longitude, 100), tweet_mode='extended').items(numTweets)
+        tweets = tweepy.Cursor(api.search, lang="en",q=search_words, geocode='"%0.4f,%0.4f,%dkm"'  % (latitude, longitude, 500), tweet_mode='extended').items(numTweets)
         tweet_list = [tweet for tweet in tweets]
     for tweet in tweet_list:
         username = tweet.user.screen_name
@@ -110,17 +118,15 @@ def scraptweets(search_words,numTweets,latitude,longitude):
             text = tweet.retweeted_status.full_text
         except:  # Not a Retweet
             text = tweet.full_text
-            ith_tweet = [username, location, text, hashtags]
-            db_tweets.loc[len(db_tweets)] = ith_tweet
+        ith_tweet = [username, location, text, hashtags]
+        db_tweets.loc[len(db_tweets)] = ith_tweet
     return clean(db_tweets)
 
 def get_tweets(user1,user2,swords):
-    # data = pd.read_csv('Data.csv')
-    # data.drop(data.columns[[3,4,5]], axis = 1, inplace = True) 
-
+    
     search_words=["women","rape"]
     if len(swords) > 0 : search_words = swords
-    # data['City'] = data['City'].apply(lambda x: x.lower())
+    
     latitude= user1
     longitude = user2
     return scraptweets(search_words,100,latitude,longitude)

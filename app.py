@@ -30,12 +30,14 @@ def get_data():
         swords = swo.split(" ")
         nusers,wc,df,todayGraph = requestResults(user1,user2,swords)
         print(df['Analysis'].value_counts())
+
         plt.figure(figsize=(12,8))
         plt.imshow(wc, interpolation="bilinear")
         plt.axis('off')
         plt.plot()  
         plt.show()
         today = datetime.now().strftime("%Y%m%d-%H%M%S")
+        #word-cloud
         plt.savefig('./static/{}.png'.format(today))
        
         return jsonify(
